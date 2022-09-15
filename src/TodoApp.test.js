@@ -22,9 +22,32 @@ describe('<TodoApp />', () => {
 
   it('creates new todo', () => {
     render(<TodoApp />);
+    const input = screen.getByPlaceholderText('할 일을 입력하세요');
+    userEvent.type(input, '새 항목 추가하기');
 
-    // screen.get
+    const submitButton = screen.getByText('등록');
+    userEvent.click(submitButton);
 
-    userEvent.change();
+    screen.getByText('새 항목 추가하기');
+  });
+  it('toggles todo', () => {
+    render(<TodoApp />);
+    const todoText = screen.getByText('TDD 배우기');
+    expect(todoText).toHaveStyle('text-decoration: line-through;');
+
+    userEvent.click(todoText);
+    expect(todoText).toHaveStyle('text-decoration: none;');
+
+    userEvent.click(todoText);
+    expect(todoText).toHaveStyle('text-decoration: line-through;');
+  });
+
+  it('removes todo', () => {
+    render(<TodoApp />);
+    const todoText = screen.getByText('TDD 배우기');
+    const removeButton = screen.getByTestId('button_1');
+
+    userEvent.click(removeButton);
+    expect(todoText).not.toBeInTheDocument(); // 또는 null 인지 아닌지로 확인 가능
   });
 });
