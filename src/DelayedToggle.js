@@ -14,7 +14,7 @@ const DelayedToggle = () => {
       <div>
         상태: <span>{toggle ? 'ON' : 'OFF'}</span>
       </div>
-      {toggle && <div>야호 !!</div>}
+      {toggle && <div>야호!!</div>}
     </div>
   );
 };
